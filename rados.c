@@ -352,7 +352,7 @@ PHP_FUNCTION(rados_create)
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         cluster_r = (php_rados_cluster *)emalloc(sizeof(php_rados_cluster));
@@ -385,7 +385,7 @@ PHP_FUNCTION(rados_create2)
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         cluster_r = (php_rados_cluster *)emalloc(sizeof(php_rados_cluster));
@@ -433,7 +433,7 @@ PHP_FUNCTION(rados_connect)
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
 
     }
     else {
@@ -466,7 +466,7 @@ PHP_FUNCTION(rados_conf_read_file)
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -496,7 +496,7 @@ PHP_FUNCTION(rados_conf_set)
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
 
     }
     else {
@@ -528,7 +528,7 @@ PHP_FUNCTION(rados_conf_get)
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
 
     }
     else {
@@ -562,7 +562,7 @@ PHP_FUNCTION(rados_ioctx_create)
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         ioctx_r = (php_rados_ioctx *)emalloc(sizeof(php_rados_ioctx));
@@ -619,7 +619,7 @@ PHP_FUNCTION(rados_pool_list)
         getErrorDescription(&errDesc,r);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-r);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         /*@TODO check for the buffer pool size for size required*/
@@ -667,7 +667,7 @@ PHP_FUNCTION(rados_pool_lookup)
         getErrorDescription(&errDesc,(long)pool_id);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-pool_id);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
 
     }
     else {
@@ -738,7 +738,7 @@ PHP_FUNCTION(rados_pool_create)
         getErrorDescription(&errDesc,r);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-r);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -770,7 +770,7 @@ PHP_FUNCTION(rados_pool_delete)
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -796,7 +796,7 @@ PHP_FUNCTION(rados_ioctx_pool_set_auid)
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -823,7 +823,7 @@ PHP_FUNCTION(rados_ioctx_pool_get_auid)
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_LONG(auid);
@@ -853,7 +853,7 @@ PHP_FUNCTION(rados_write) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -881,7 +881,7 @@ PHP_FUNCTION(rados_write_full) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -913,7 +913,7 @@ PHP_FUNCTION(rados_read) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_STRINGL(buffer, response, 0);
@@ -940,7 +940,7 @@ PHP_FUNCTION(rados_remove) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -967,7 +967,7 @@ PHP_FUNCTION(rados_trunc) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -996,7 +996,7 @@ PHP_FUNCTION(rados_append) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -1029,7 +1029,7 @@ PHP_FUNCTION(rados_clone_range) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -1062,7 +1062,7 @@ PHP_FUNCTION(rados_getxattr) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_STRINGL(buffer, size, 1);
@@ -1094,7 +1094,7 @@ PHP_FUNCTION(rados_setxattr) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -1125,7 +1125,7 @@ PHP_FUNCTION(rados_rmxattr) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -1155,11 +1155,11 @@ PHP_FUNCTION(rados_stat) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         array_init(return_value);
-        add_assoc_string(return_value, "oid", oid, 1);
+        add_assoc_string(return_value, "oid", oid);
         add_assoc_long(return_value, "psize", (long)psize);
         add_assoc_long(return_value, "pmtime", (long)pmtime);
     }
@@ -1255,7 +1255,7 @@ PHP_FUNCTION(rados_ioctx_snap_create) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -1283,7 +1283,7 @@ PHP_FUNCTION(rados_ioctx_snap_remove) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -1312,7 +1312,7 @@ PHP_FUNCTION(rados_rollback) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -1346,7 +1346,7 @@ PHP_FUNCTION(rados_ioctx_snap_list) {
         getErrorDescription(&errDesc,r);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-r);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
 
@@ -1378,7 +1378,7 @@ PHP_FUNCTION(rados_ioctx_snap_lookup) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_LONG(snapid);
@@ -1406,7 +1406,7 @@ PHP_FUNCTION(rados_ioctx_snap_get_name) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_STRINGL(snapname, strlen(snapname), 1);
@@ -1433,7 +1433,7 @@ PHP_FUNCTION(rados_ioctx_snap_get_stamp) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_LONG(time);
@@ -1458,7 +1458,7 @@ PHP_FUNCTION(rados_cluster_stat) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
 
@@ -1489,7 +1489,7 @@ PHP_FUNCTION(rados_ioctx_pool_stat) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         array_init(return_value);
@@ -1527,7 +1527,7 @@ PHP_FUNCTION(rados_cluster_fsid) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_STRINGL(fsid, strlen(fsid), 1);
@@ -1552,7 +1552,7 @@ PHP_FUNCTION(rados_wait_for_latest_osdmap) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_TRUE;
@@ -1578,7 +1578,7 @@ PHP_FUNCTION(rados_pool_reverse_lookup) {
         getErrorDescription(&errDesc,response);
         array_init(return_value);
         add_assoc_long(return_value, "errCode", (long)-response);
-        add_assoc_string(return_value, "errMessage", errDesc, 0);
+        add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
         RETURN_STRINGL(pool_name, strlen(pool_name), 1);
