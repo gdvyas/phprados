@@ -547,7 +547,7 @@ PHP_FUNCTION(rados_conf_get)
 
     }
     else {
-        RETURN_STRINGL(value, strlen(value), 1);
+        RETURN_STRINGL(value, strlen(value));
     }
 }
 
@@ -964,7 +964,7 @@ PHP_FUNCTION(rados_read) {
         add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
-        RETURN_STRINGL(buffer, response, 0);
+        RETURN_STRINGL(buffer, response);
     }
 
 }
@@ -1125,7 +1125,7 @@ PHP_FUNCTION(rados_getxattr) {
         add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
-        RETURN_STRINGL(buffer, size, 1);
+        RETURN_STRINGL(buffer, size);
     }
 }
 
@@ -1502,7 +1502,7 @@ PHP_FUNCTION(rados_ioctx_snap_get_name) {
         add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
-        RETURN_STRINGL(snapname, strlen(snapname), 1);
+        RETURN_STRINGL(snapname, strlen(snapname));
     }
 }
 
@@ -1635,7 +1635,7 @@ PHP_FUNCTION(rados_cluster_fsid) {
         add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
-        RETURN_STRINGL(fsid, strlen(fsid), 1);
+        RETURN_STRINGL(fsid, strlen(fsid));
     }
 }
 
@@ -1692,7 +1692,7 @@ PHP_FUNCTION(rados_pool_reverse_lookup) {
         add_assoc_string(return_value, "errMessage", errDesc);
     }
     else {
-        RETURN_STRINGL(pool_name, strlen(pool_name), 1);
+        RETURN_STRINGL(pool_name, strlen(pool_name));
     }
 }
 
@@ -1774,7 +1774,7 @@ PHP_FUNCTION(rados_ioctx_get_pool_name) {
         RETURN_FALSE;
     }
 
-    RETURN_STRINGL(pool_name, strlen(pool_name), 1);
+    RETURN_STRINGL(pool_name, strlen(pool_name));
 }
 
 PHP_FUNCTION(rados_ioctx_get_namespace)
