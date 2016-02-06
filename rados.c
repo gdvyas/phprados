@@ -404,7 +404,11 @@ PHP_FUNCTION(rados_shutdown)
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+//	ZEND_FETCH_RESOURCE(trie, struct bw_trie_t*, &znode, -1, PHP_BOXWOOD_TRIE_RES_NAME, le_bw_trie);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     rados_shutdown(cluster_r->cluster);
     cluster_r->connected = false;
