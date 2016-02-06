@@ -660,7 +660,7 @@ PHP_FUNCTION(rados_pool_list)
                 break;
             }
 
-            add_next_index_string(return_value, b, 1);
+            add_next_index_string(return_value, b);
             b += strlen(b) + 1;
         }
 
@@ -1277,7 +1277,7 @@ PHP_FUNCTION(rados_getxattrs) {
         if (name == NULL) {
             break;
         }
-        add_assoc_stringl_ex(return_value, name, strlen(name)+1, val, len, 1);
+        add_assoc_stringl_ex(return_value, name, strlen(name)+1, val, len);
     }
     rados_getxattrs_end(iter);
 }
@@ -1301,7 +1301,7 @@ PHP_FUNCTION(rados_objects_list) {
     rados_objects_list_open(ioctx_r->io, &ctx);
     const char *oid;
     while (rados_objects_list_next(ctx, &oid, NULL) == 0) {
-        add_next_index_string(return_value, oid, 1);
+        add_next_index_string(return_value, oid);
     }
     rados_objects_list_close(ctx);
 }
@@ -1792,7 +1792,7 @@ PHP_FUNCTION(rados_ioctx_get_namespace)
     }
 
     if (ioctx_r->nspace) {
-        RETURN_STRING(ioctx_r->nspace, 1);
+        RETURN_STRING(ioctx_r->nspace);
     } else {
         RETURN_NULL();
     }
