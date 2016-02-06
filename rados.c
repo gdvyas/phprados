@@ -727,7 +727,8 @@ PHP_FUNCTION(rados_pool_create)
         zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(options), &pos);
 //        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(options), (void **)&entry, &pos) == SUCCESS) {
         while (zend_hash_get_current_data_ex(Z_ARRVAL_P(options),  &pos) == SUCCESS) {
-            if (zend_hash_get_current_key_ex(Z_ARRVAL_P(options), &key, &key_len, &option, 0, &pos) != HASH_KEY_IS_STRING) {
+//            if (zend_hash_get_current_key_ex(Z_ARRVAL_P(options), &key, &key_len, &option, 0, &pos) != HASH_KEY_IS_STRING) {
+            if (zend_hash_get_current_key_ex(Z_ARRVAL_P(options), &key, 0, &pos) != HASH_KEY_IS_STRING) {
                 php_error_docref(NULL TSRMLS_CC, E_WARNING, "Array keys must be strings");
                 RETURN_NULL();
             }
