@@ -405,7 +405,6 @@ PHP_FUNCTION(rados_shutdown)
     }
 
     //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
-//	ZEND_FETCH_RESOURCE(trie, struct bw_trie_t*, &znode, -1, PHP_BOXWOOD_TRIE_RES_NAME, le_bw_trie);
 	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
         RETURN_FALSE;
     }
@@ -427,7 +426,10 @@ PHP_FUNCTION(rados_connect)
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	//ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
 
     response = rados_connect(cluster_r->cluster);
@@ -459,7 +461,10 @@ PHP_FUNCTION(rados_conf_read_file)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	//ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     verifyConnectionState(cluster_r->connected, false);
 
@@ -490,7 +495,10 @@ PHP_FUNCTION(rados_conf_set)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     verifyConnectionState(cluster_r->connected, false);
 
@@ -522,7 +530,10 @@ PHP_FUNCTION(rados_conf_get)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
 
     response = rados_conf_get(cluster_r->cluster, option, value, sizeof(value));
@@ -555,7 +566,10 @@ PHP_FUNCTION(rados_ioctx_create)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     verifyConnectionState(cluster_r->connected, true);
 
@@ -589,7 +603,10 @@ PHP_FUNCTION(rados_ioctx_destroy)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     rados_ioctx_destroy(ioctx_r->io);
 
@@ -608,7 +625,10 @@ PHP_FUNCTION(rados_pool_list)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     verifyConnectionState(cluster_r->connected, true);
 
@@ -661,7 +681,10 @@ PHP_FUNCTION(rados_pool_lookup)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     verifyConnectionState(cluster_r->connected, true);
 
@@ -722,7 +745,10 @@ PHP_FUNCTION(rados_pool_create)
         }
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     verifyConnectionState(cluster_r->connected, true);
 
@@ -762,7 +788,10 @@ PHP_FUNCTION(rados_pool_delete)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     verifyConnectionState(cluster_r->connected, true);
 
@@ -793,7 +822,10 @@ PHP_FUNCTION(rados_ioctx_pool_set_auid)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_ioctx_pool_set_auid(ioctx_r->io, auid);
     if(response<0) {
@@ -819,7 +851,10 @@ PHP_FUNCTION(rados_ioctx_pool_get_auid)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
 
     response = rados_ioctx_pool_get_auid(ioctx_r->io, &auid);
@@ -849,7 +884,10 @@ PHP_FUNCTION(rados_write) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_write(ioctx_r->io, oid, buffer, buffer_len, offset);
 
@@ -878,7 +916,10 @@ PHP_FUNCTION(rados_write_full) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_write_full(ioctx_r->io, oid, buffer, buffer_len);
     if(response<0) {
@@ -909,7 +950,10 @@ PHP_FUNCTION(rados_read) {
     //char buffer[size];
     char *buffer = emalloc(size * sizeof(char));
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_read(ioctx_r->io, oid, buffer, size, offset);
     if(response<0) {
@@ -937,7 +981,10 @@ PHP_FUNCTION(rados_remove) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_remove(ioctx_r->io, oid);
     if(response<0) {
@@ -964,7 +1011,10 @@ PHP_FUNCTION(rados_trunc) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_trunc(ioctx_r->io, oid, size);
     if(response<0) {
@@ -992,9 +1042,11 @@ PHP_FUNCTION(rados_append) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
-
-
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
+	
     response = rados_append(ioctx_r->io, oid, buffer, buffer_len);
     if(response<0) {
         getErrorDescription(&errDesc,response);
@@ -1024,8 +1076,10 @@ PHP_FUNCTION(rados_clone_range) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
-
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_clone_range(ioctx_r->io, dst_oid, dst_offset, src_oid, src_offset, size);
 
@@ -1057,9 +1111,11 @@ PHP_FUNCTION(rados_getxattr) {
 
     char buffer[size];
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
-
-
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
+	
     response = rados_getxattr(ioctx_r->io, oid, name, buffer, size);
 
     if(response<0) {
@@ -1089,8 +1145,10 @@ PHP_FUNCTION(rados_setxattr) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
-
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_setxattr(ioctx_r->io, oid, name, buffer, buffer_len);
 
@@ -1120,7 +1178,11 @@ PHP_FUNCTION(rados_rmxattr) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
+
 
 
     response = rados_rmxattr(ioctx_r->io, oid, name);
@@ -1150,8 +1212,10 @@ PHP_FUNCTION(rados_stat) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
-
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_stat(ioctx_r->io, oid, &psize, &pmtime);
 
@@ -1177,7 +1241,10 @@ PHP_FUNCTION(rados_get_last_version) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     RETURN_LONG(rados_get_last_version(ioctx_r->io));
 }
@@ -1193,7 +1260,10 @@ PHP_FUNCTION(rados_getxattrs) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     array_init(return_value);
 
@@ -1221,7 +1291,10 @@ PHP_FUNCTION(rados_objects_list) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     array_init(return_value);
 
@@ -1250,8 +1323,10 @@ PHP_FUNCTION(rados_ioctx_snap_create) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
-
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_ioctx_snap_create(ioctx_r->io, snapname);
 
@@ -1278,8 +1353,10 @@ PHP_FUNCTION(rados_ioctx_snap_remove) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
-
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_ioctx_snap_remove(ioctx_r->io, snapname);
 
@@ -1308,7 +1385,10 @@ PHP_FUNCTION(rados_rollback) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_ioctx_snap_rollback(ioctx_r->io, oid, snapname);
 
@@ -1335,7 +1415,10 @@ PHP_FUNCTION(rados_ioctx_snap_list) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     if (maxsnaps > PHP_RADOS_SNAP_MAX_NUM) {
         php_error_docref(NULL TSRMLS_CC, E_ERROR, "The maximum number of snapshots per pool is %d!", PHP_RADOS_SNAP_MAX_NUM);
@@ -1374,7 +1457,10 @@ PHP_FUNCTION(rados_ioctx_snap_lookup) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_ioctx_snap_lookup(ioctx_r->io, snapname, &snapid);
 
@@ -1401,7 +1487,10 @@ PHP_FUNCTION(rados_ioctx_snap_get_name) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
 
     response = rados_ioctx_snap_get_name(ioctx_r->io, snapid, snapname, sizeof(snapname));
@@ -1429,7 +1518,10 @@ PHP_FUNCTION(rados_ioctx_snap_get_stamp) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_ioctx_snap_get_stamp(ioctx_r->io, snapid, &time);
 
@@ -1455,7 +1547,10 @@ PHP_FUNCTION(rados_cluster_stat) {
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response =  rados_cluster_stat(cluster_r->cluster, &result);
     if (response < 0) {
@@ -1485,7 +1580,10 @@ PHP_FUNCTION(rados_ioctx_pool_stat) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response =  rados_ioctx_pool_stat(ioctx_r->io, &result);
 
@@ -1523,7 +1621,10 @@ PHP_FUNCTION(rados_cluster_fsid) {
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_cluster_fsid(cluster_r->cluster, fsid, sizeof(fsid));
 
@@ -1548,7 +1649,10 @@ PHP_FUNCTION(rados_wait_for_latest_osdmap) {
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_wait_for_latest_osdmap(cluster_r->cluster);
 
@@ -1575,7 +1679,10 @@ PHP_FUNCTION(rados_pool_reverse_lookup) {
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     response = rados_pool_reverse_lookup(cluster_r->cluster, pool_id, pool_name, sizeof(pool_name));
     if (response < 0) {
@@ -1597,7 +1704,10 @@ PHP_FUNCTION(rados_get_instance_id) {
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     RETURN_LONG(rados_get_instance_id(cluster_r->cluster));
 }
@@ -1614,7 +1724,10 @@ PHP_FUNCTION(rados_ioctx_create2)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+    //ZEND_FETCH_RESOURCE(cluster_r, php_rados_cluster*, &zcluster, -1, PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster);
+	if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
+        RETURN_FALSE;
+    }
 
     verifyConnectionState(cluster_r->connected, true);
 
@@ -1635,7 +1748,10 @@ PHP_FUNCTION(rados_ioctx_get_id) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     RETURN_LONG(rados_ioctx_get_id(ioctx_r->io));
 }
@@ -1649,7 +1765,10 @@ PHP_FUNCTION(rados_ioctx_get_pool_name) {
         RETURN_FALSE;
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     if (rados_ioctx_get_pool_name(ioctx_r->io, &pool_name, sizeof(pool_name)) < 0) {
         RETURN_FALSE;
@@ -1667,7 +1786,10 @@ PHP_FUNCTION(rados_ioctx_get_namespace)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     if (ioctx_r->nspace) {
         RETURN_STRING(ioctx_r->nspace, 1);
@@ -1687,7 +1809,10 @@ PHP_FUNCTION(rados_ioctx_set_namespace)
         RETURN_NULL();
     }
 
-    ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+    //ZEND_FETCH_RESOURCE(ioctx_r, php_rados_ioctx*, &zioctx, -1, PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx);
+	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+        RETURN_FALSE;
+    }
 
     if (nspace_len == 0) {
         nspace = NULL;
