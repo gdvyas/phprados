@@ -392,7 +392,8 @@ PHP_FUNCTION(rados_create2)
         cluster_r = (php_rados_cluster *)emalloc(sizeof(php_rados_cluster));
         cluster_r->cluster = cluster;
         cluster_r->connected = false;
-        ZEND_REGISTER_RESOURCE(return_value, cluster_r, le_rados_cluster);
+        //ZEND_REGISTER_RESOURCE(return_value, cluster_r, le_rados_cluster);
+		RETURN_RES(zend_register_resource(cluster_r, le_rados_cluster));
     }
 }
 
@@ -586,13 +587,15 @@ PHP_FUNCTION(rados_ioctx_create)
     else {
         ioctx_r = (php_rados_ioctx *)emalloc(sizeof(php_rados_ioctx));
         ioctx_r->io = io;
-        ZEND_REGISTER_RESOURCE(return_value, ioctx_r, le_rados_ioctx);
+        //ZEND_REGISTER_RESOURCE(return_value, ioctx_r, le_rados_ioctx);
+		RETURN_RES(zend_register_resource(ioctx_r, le_rados_ioctx));
     }
 
     ioctx_r = (php_rados_ioctx *)emalloc(sizeof(php_rados_ioctx));
     ioctx_r->io = io;
     ioctx_r->nspace = NULL;
-    ZEND_REGISTER_RESOURCE(return_value, ioctx_r, le_rados_ioctx);
+    //ZEND_REGISTER_RESOURCE(return_value, ioctx_r, le_rados_ioctx);
+	RETURN_RES(zend_register_resource(ioctx_r, le_rados_ioctx));
 }
 
 PHP_FUNCTION(rados_ioctx_destroy)
@@ -1740,7 +1743,8 @@ PHP_FUNCTION(rados_ioctx_create2)
 
     ioctx_r = (php_rados_ioctx *)emalloc(sizeof(php_rados_ioctx));
     ioctx_r->io = io;
-    ZEND_REGISTER_RESOURCE(return_value, ioctx_r, le_rados_ioctx);
+    //ZEND_REGISTER_RESOURCE(return_value, ioctx_r, le_rados_ioctx);
+	RETURN_RES(zend_register_resource(ioctx_r, le_rados_ioctx));
 }
 
 PHP_FUNCTION(rados_ioctx_get_id) {
