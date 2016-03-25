@@ -468,7 +468,8 @@ PHP_FUNCTION(rados_conf_read_file)
         RETURN_FALSE;
     }
 
-    verifyConnectionState(cluster_r->connected, false);
+	RETURN_TRUE;
+    /*verifyConnectionState(cluster_r->connected, false);
 
 
     response = rados_conf_read_file(cluster_r->cluster, path);
@@ -481,7 +482,7 @@ PHP_FUNCTION(rados_conf_read_file)
     }
     else {
         RETURN_TRUE;
-    }
+    }*/
 }
 
 PHP_FUNCTION(rados_conf_set)
