@@ -358,7 +358,8 @@ PHP_FUNCTION(rados_create)
         cluster_r = (php_rados_cluster *)emalloc(sizeof(php_rados_cluster));
         cluster_r->cluster = cluster;
         cluster_r->connected = false;
-        ZEND_REGISTER_RESOURCE(return_value, cluster_r, le_rados_cluster);
+        //ZEND_REGISTER_RESOURCE(return_value, cluster_r, le_rados_cluster);
+		RETURN_RES(zend_register_resource(result, le_result);
     }
 
 }
