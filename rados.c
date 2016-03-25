@@ -359,7 +359,7 @@ PHP_FUNCTION(rados_create)
         cluster_r->cluster = cluster;
         cluster_r->connected = false;
         //ZEND_REGISTER_RESOURCE(return_value, cluster_r, le_rados_cluster);
-		RETURN_RES(zend_register_resource(result, le_result);
+		RETURN_RES(zend_register_resource(result, le_result));
     }
 
 }
