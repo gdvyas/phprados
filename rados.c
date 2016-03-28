@@ -1297,7 +1297,7 @@ PHP_FUNCTION(rados_ioctx_snap_create) {
         RETURN_FALSE;
     }
 
-    if (snapname_len > PHP_RADOS_SNAP_NAME_MAX_LENGTH) {
+    if (snapname->len > PHP_RADOS_SNAP_NAME_MAX_LENGTH) {
         php_error_docref(NULL TSRMLS_CC, E_ERROR, "The snapshot name (%s) is too long!", snapname);
         RETURN_FALSE;
     }
