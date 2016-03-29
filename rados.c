@@ -338,6 +338,8 @@ PHP_FUNCTION(rados_create)
     php_rados_cluster *cluster_r;
     rados_t cluster;
     zend_string *id = NULL;
+
+
     int response = 0;
     char *errDesc = NULL;
 
@@ -368,6 +370,8 @@ PHP_FUNCTION(rados_create2)
     rados_t cluster;
     zend_string *name = NULL;
     zend_string *clustername = NULL;
+
+
     int flags;
     int response = 0;
     char *errDesc = NULL;
@@ -448,6 +452,7 @@ PHP_FUNCTION(rados_conf_read_file)
     php_rados_cluster *cluster_r;
     zval *zcluster;
     zend_string *path = NULL;
+
     int response = 0;
     char *errDesc = NULL;
 
@@ -480,6 +485,7 @@ PHP_FUNCTION(rados_conf_set)
     php_rados_cluster *cluster_r;
     zval *zcluster;
     zend_string *option, *value = NULL;
+
     int response = 0;
     char *errDesc = NULL;
 
@@ -512,6 +518,7 @@ PHP_FUNCTION(rados_conf_get)
     php_rados_cluster *cluster_r;
     zval *zcluster;
     zend_string *option = NULL;
+
     char value[256];
     int response = 0;
     char *errDesc = NULL;
@@ -523,6 +530,7 @@ PHP_FUNCTION(rados_conf_get)
     if ((cluster_r = (php_rados_cluster *) zend_fetch_resource(Z_RES_P(zcluster), PHP_RADOS_CLUSTER_RES_NAME, le_rados_cluster)) == NULL) {
         RETURN_FALSE;
     }
+
 
     response = rados_conf_get(cluster_r->cluster,(char *) option->val, value, sizeof(value));
 
@@ -546,6 +554,7 @@ PHP_FUNCTION(rados_ioctx_create)
     zval *zcluster;
     rados_ioctx_t io;
     zend_string *pool = NULL;
+
     int response = 0;
     char *errDesc = NULL;
 
@@ -571,13 +580,9 @@ PHP_FUNCTION(rados_ioctx_create)
     else {
         ioctx_r = (php_rados_ioctx *)emalloc(sizeof(php_rados_ioctx));
         ioctx_r->io = io;
+		ioctx_r->nspace = NULL;
 		RETURN_RES(zend_register_resource(ioctx_r, le_rados_ioctx));
     }
-
-    ioctx_r = (php_rados_ioctx *)emalloc(sizeof(php_rados_ioctx));
-    ioctx_r->io = io;
-    ioctx_r->nspace = NULL;
-	RETURN_RES(zend_register_resource(ioctx_r, le_rados_ioctx));
 }
 
 PHP_FUNCTION(rados_ioctx_destroy)
@@ -657,6 +662,7 @@ PHP_FUNCTION(rados_pool_lookup)
     php_rados_cluster *cluster_r;
     zval *zcluster;
     zend_string *pool = NULL;
+
     uint64_t pool_id = 0;
     char *errDesc = NULL;
 
@@ -695,6 +701,7 @@ PHP_FUNCTION(rados_pool_create)
     uint key_len;
     int auid = -1;
     int crushrule = -1;
+
     long option;
     HashPosition pos;
     int response = 0;
@@ -706,9 +713,7 @@ PHP_FUNCTION(rados_pool_create)
 
     if (ZEND_NUM_ARGS() == 3 && Z_TYPE_P(options) == IS_ARRAY) {
         zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(options), &pos);
-//        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(options), (void **)&entry, &pos) == SUCCESS) {
         while (zend_hash_get_current_data_ex(Z_ARRVAL_P(options),  &pos) == SUCCESS) {
-//            if (zend_hash_get_current_key_ex(Z_ARRVAL_P(options), &key, &key_len, &option, 0, &pos) != HASH_KEY_IS_STRING) {
             if (zend_hash_get_current_key_ex(Z_ARRVAL_P(options), &key, 0, &pos) != HASH_KEY_IS_STRING) {
                 php_error_docref(NULL TSRMLS_CC, E_WARNING, "Array keys must be strings");
                 RETURN_NULL();
@@ -762,6 +767,7 @@ PHP_FUNCTION(rados_pool_delete)
     php_rados_cluster *cluster_r;
     zval *zcluster;
     zend_string *pool = NULL;
+
     int response = 0;
     char *errDesc = NULL;
 
@@ -851,6 +857,7 @@ PHP_FUNCTION(rados_write) {
     php_rados_ioctx *ioctx_r;
     zend_string *oid=NULL;
     char *buffer=NULL;
+
     size_t buffer_len;
     uint64_t offset = 0;
     zval *zioctx;
@@ -882,6 +889,7 @@ PHP_FUNCTION(rados_write_full) {
     php_rados_ioctx *ioctx_r;
     zend_string *oid = NULL;
     char *buffer = NULL;
+
     size_t buffer_len = 0;
     zval *zioctx;
     int response = 0;
@@ -911,6 +919,7 @@ PHP_FUNCTION(rados_read) {
     php_rados_ioctx *ioctx_r;
     zend_string *oid=NULL;
    
+
     size_t size;
     zval *zioctx;
     uint64_t offset = 0;
@@ -945,6 +954,7 @@ PHP_FUNCTION(rados_read) {
 PHP_FUNCTION(rados_remove) {
     php_rados_ioctx *ioctx_r;
     zend_string *oid=NULL;
+
     zval *zioctx;
     int response = 0;
     char *errDesc = NULL;
@@ -972,6 +982,7 @@ PHP_FUNCTION(rados_remove) {
 PHP_FUNCTION(rados_trunc) {
     php_rados_ioctx *ioctx_r;
     zend_string *oid=NULL;
+
     size_t size;
     zval *zioctx;
     int response = 0;
@@ -1001,7 +1012,9 @@ PHP_FUNCTION(rados_append) {
     php_rados_ioctx *ioctx_r;
     zend_string *oid=NULL;
     char *buffer=NULL;
+
     size_t buffer_len;
+
     zval *zioctx;
     int response = 0;
     char *errDesc = NULL;
@@ -1014,6 +1027,7 @@ PHP_FUNCTION(rados_append) {
         RETURN_FALSE;
     }
 	
+
     response = rados_append(ioctx_r->io, (char *)oid->val, buffer, buffer_len);
     if(response<0) {
         getErrorDescription(&errDesc,response);
@@ -1030,6 +1044,8 @@ PHP_FUNCTION(rados_clone_range) {
     php_rados_ioctx *ioctx_r;
     zend_string *dst_oid=NULL;
     zend_string *src_oid=NULL;
+
+
     size_t size;
     uint64_t dst_offset;
     uint64_t src_offset;
@@ -1044,6 +1060,7 @@ PHP_FUNCTION(rados_clone_range) {
     if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
         RETURN_FALSE;
     }
+
 
     response = rados_clone_range(ioctx_r->io, (char *)dst_oid->val, dst_offset, (char *)src_oid->val, src_offset, size);
 
@@ -1062,6 +1079,8 @@ PHP_FUNCTION(rados_getxattr) {
     php_rados_ioctx *ioctx_r;
     zend_string *oid=NULL;
     zend_string *name=NULL;
+
+
     size_t size;
     zval *zioctx;
     int response = 0;
@@ -1077,6 +1096,7 @@ PHP_FUNCTION(rados_getxattr) {
         RETURN_FALSE;
     }
 	
+
     response = rados_getxattr(ioctx_r->io, (char *)oid->val,(char *) name->val, buffer, size);
 
     if(response<0) {
@@ -1095,6 +1115,8 @@ PHP_FUNCTION(rados_setxattr) {
     zend_string *oid=NULL;
     zend_string *name=NULL;
     char *buffer=NULL;
+
+
     size_t buffer_len;
     zval *zioctx;
     int response = 0;
@@ -1107,6 +1129,7 @@ PHP_FUNCTION(rados_setxattr) {
     if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
         RETURN_FALSE;
     }
+
 
     response = rados_setxattr(ioctx_r->io, (char *)oid->val, (char *)name->val, buffer, buffer_len);
 
@@ -1125,6 +1148,8 @@ PHP_FUNCTION(rados_rmxattr) {
     php_rados_ioctx *ioctx_r;
     zend_string *oid=NULL;
     zend_string *name=NULL;
+
+
     size_t size;
     zval *zioctx;
     int response = 0;
@@ -1135,8 +1160,10 @@ PHP_FUNCTION(rados_rmxattr) {
     }
 
     if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
+
         RETURN_FALSE;
     }
+
 
 
 
@@ -1156,6 +1183,7 @@ PHP_FUNCTION(rados_rmxattr) {
 PHP_FUNCTION(rados_stat) {
     php_rados_ioctx *ioctx_r;
     zend_string *oid=NULL;
+
     uint64_t psize;
     time_t pmtime;
     zval *zioctx;
@@ -1169,6 +1197,7 @@ PHP_FUNCTION(rados_stat) {
     if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
         RETURN_FALSE;
     }
+
 
     response = rados_stat(ioctx_r->io, (char *)oid->val, &psize, &pmtime);
 
@@ -1204,8 +1233,10 @@ PHP_FUNCTION(rados_get_last_version) {
 PHP_FUNCTION(rados_getxattrs) {
     php_rados_ioctx *ioctx_r;
     zend_string *oid=NULL;
+
     zval *zioctx;
     rados_xattrs_iter_t iter;
+
 
     if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "rS", &zioctx, &oid) == FAILURE) {
         RETURN_FALSE;
@@ -1218,6 +1249,13 @@ PHP_FUNCTION(rados_getxattrs) {
     array_init(return_value);
 
     rados_getxattrs(ioctx_r->io, (char *)oid->val, &iter);
+
+
+
+
+
+
+
     while (1) {
         const char *name;
         const char *val;
@@ -1231,6 +1269,7 @@ PHP_FUNCTION(rados_getxattrs) {
     }
     rados_getxattrs_end(iter);
 }
+
 
 PHP_FUNCTION(rados_objects_list) {
     php_rados_ioctx *ioctx_r;
@@ -1259,6 +1298,7 @@ PHP_FUNCTION(rados_ioctx_snap_create) {
     php_rados_ioctx *ioctx_r;
     zval *zioctx;
     zend_string *snapname=NULL;
+
     int response = 0;
     char *errDesc = NULL;
 
@@ -1274,6 +1314,7 @@ PHP_FUNCTION(rados_ioctx_snap_create) {
 	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
         RETURN_FALSE;
     }
+
 
     response = rados_ioctx_snap_create(ioctx_r->io, (char *)snapname->val);
 
@@ -1293,6 +1334,7 @@ PHP_FUNCTION(rados_ioctx_snap_remove) {
     zval *zioctx;
     zend_string *snapname=NULL;
     
+
     int response = 0;
     char *errDesc = NULL;
 
@@ -1303,6 +1345,7 @@ PHP_FUNCTION(rados_ioctx_snap_remove) {
 	if ((ioctx_r = (php_rados_ioctx *) zend_fetch_resource(Z_RES_P(zioctx), PHP_RADOS_IOCTX_RES_NAME, le_rados_ioctx)) == NULL) {
         RETURN_FALSE;
     }
+
 
     response = rados_ioctx_snap_remove(ioctx_r->io, (char *)snapname->val);
 
@@ -1321,7 +1364,9 @@ PHP_FUNCTION(rados_rollback) {
     php_rados_ioctx *ioctx_r;
     zval *zioctx;
     zend_string *snapname=NULL;
+
     zend_string *oid=NULL;
+
     int response = 0;
     char *errDesc = NULL;
 
@@ -1390,6 +1435,7 @@ PHP_FUNCTION(rados_ioctx_snap_lookup) {
     php_rados_ioctx *ioctx_r;
     zval *zioctx;
     zend_string *snapname=NULL;
+
     rados_snap_t snapid;
     int response = 0;
     char *errDesc = NULL;
@@ -1668,7 +1714,9 @@ PHP_FUNCTION(rados_ioctx_create2)
 
     ioctx_r = (php_rados_ioctx *)emalloc(sizeof(php_rados_ioctx));
     ioctx_r->io = io;
+
 	RETURN_RES(zend_register_resource(ioctx_r, le_rados_ioctx));
+
 }
 
 PHP_FUNCTION(rados_ioctx_get_id) {
